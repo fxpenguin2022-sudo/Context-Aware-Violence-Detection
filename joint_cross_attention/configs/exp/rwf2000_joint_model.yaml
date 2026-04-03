@@ -1,0 +1,4 @@
+experiment:
+  name: rwf2000_joint_model
+  notes: "Joint violence detection with SG-ACA and AMCF on full RWF-2000"
+  tags: [joint_cross_attention, joint, sg_aca, amcf, rwf2000_full]

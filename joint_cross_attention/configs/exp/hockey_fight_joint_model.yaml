@@ -1,0 +1,14 @@
+experiment:
+  name: hockey_fight_joint_model
+  notes: "Joint SG-ACA + AMCF transfer to hockey_fight using RWF-pretrained branches"
+  tags: [joint_cross_attention, hockey_fight, joint]
+
+train:
+  epochs: 20
+  batch_size: 2
+  eval_batch_size: 2
+  grad_accum_steps: 4
+  early_stop:
+    enabled: true
+    monitor: acc
+    patience: 5

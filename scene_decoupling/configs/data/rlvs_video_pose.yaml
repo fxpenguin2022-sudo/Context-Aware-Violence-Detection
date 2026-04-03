@@ -1,0 +1,13 @@
+paths:
+  video_root: ./data/rlvs
+  pose_root: ./data/rlvs_pose_hq
+  index_file: ./scene_decoupling/outputs/cache/rlvs_scene_decoupling_index.jsonl
+
+data:
+  dataset_name: RLVS
+  class_to_label:
+    NonViolence: 0
+    Violence: 1
+  train_split: train
+  val_split: val
+  use_prebuilt_index: true

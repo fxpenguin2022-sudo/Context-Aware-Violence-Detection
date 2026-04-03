@@ -1,0 +1,7 @@
+paths:
+  index_file: ./outputs/cache/rwf2000_pose_curated_v1.jsonl
+
+data:
+  use_prebuilt_index: true
+  train_split: train
+  val_split: val

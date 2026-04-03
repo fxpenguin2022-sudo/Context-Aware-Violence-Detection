@@ -1,0 +1,44 @@
+train:
+  epochs: 15
+  batch_size: 4
+  eval_batch_size: 4
+  num_workers: 4
+  pin_memory: true
+  persistent_workers: true
+  prefetch_factor: 1
+
+  optimizer:
+    name: adamw
+    lr_backbone: 5.0e-5
+    lr_head: 3.0e-4
+    weight_decay: 2.0e-2
+    betas: [0.9, 0.999]
+
+  scheduler:
+    name: cosine
+    warmup_epochs: 5
+    min_lr: 1.0e-6
+
+  grad_accum_steps: 2
+  grad_clip_norm: 1.0
+  max_steps_per_epoch: 0
+
+  ddp:
+    enabled: true
+    backend: nccl
+    find_unused_parameters: false
+    static_graph: false
+    gradient_as_bucket_view: true
+
+  early_stop:
+    enabled: false
+    patience: 14
+    monitor: acc
+
+eval:
+  max_batches: 0
+  threshold:
+    fixed: 0.5
+    scan_min: 0.01
+    scan_max: 0.99
+    scan_steps: 199

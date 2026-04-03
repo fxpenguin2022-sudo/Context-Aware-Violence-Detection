@@ -1,0 +1,24 @@
+experiment:
+  name: rwf2000_joint_model_push94
+  notes: "Paper-strict joint training from pose-branch and scene-decoupling pretrained branches"
+  tags: [joint_cross_attention, joint, sg_aca, amcf, push94, rwf2000_full]
+
+train:
+  epochs: 50
+  batch_size: 2
+  eval_batch_size: 2
+  grad_accum_steps: 4
+  optimizer:
+    lr_branch: 1.0e-5
+    lr_fusion: 1.0e-4
+    weight_decay: 5.0e-4
+  scheduler:
+    warmup_epochs: 5
+  ddp:
+    enabled: true
+    find_unused_parameters: true
+    gradient_as_bucket_view: false
+  early_stop:
+    enabled: true
+    monitor: acc
+    patience: 8

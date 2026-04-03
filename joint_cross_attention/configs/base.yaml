@@ -1,0 +1,27 @@
+project:
+  name: rwf2000_joint_cross_attention
+  seed: 3407
+  deterministic: false
+
+paths:
+  video_root: ./data/rwf2000
+  pose_root: ./data/rwf2000_pose_hq
+  output_root: ./joint_cross_attention/outputs/runs
+  cache_root: ./joint_cross_attention/outputs/cache
+  index_file: ./joint_cross_attention/outputs/cache/rwf2000_joint_index.jsonl
+
+runtime:
+  device: cuda
+  use_amp: true
+  amp_dtype: bf16
+  allow_tf32: true
+  matmul_precision: high
+  cudnn_benchmark: true
+  compile_model: false
+
+logging:
+  level: INFO
+  log_interval: 20
+  progress_bar: true
+  tensorboard: true
+  save_every_epochs: 1

@@ -1,0 +1,42 @@
+data:
+  dataset_name: RWF-2000
+  key_name: keypoints
+  class_to_label:
+    Normal: 0
+    Fight: 1
+  train_split: train
+  val_split: val
+  use_prebuilt_index: true
+
+  frame_size: [224, 224]
+  clip_len: 8
+  clip_step: 8
+  full_sequence: true
+  # Bound per-video clip count during training to cut redundant compute.
+  max_clips_train: 12
+  max_clips_eval: 0
+
+  max_persons: 5
+  num_keypoints: 17
+  mask_sigma: 12.0
+  mask_threshold: 0.05
+  decode_timeout_ms: 15000
+  decode_max_seconds: 20.0
+  decode_max_frames: 3000
+  max_resample_tries: 8
+
+  cache_mode: none
+  cache_size_video: 64
+  cache_size_pose: 512
+
+  normalize:
+    mean: [0.485, 0.456, 0.406]
+    std: [0.229, 0.224, 0.225]
+
+  augment:
+    train:
+      horizontal_flip_prob: 0.5
+      color_jitter: 0.2
+    eval:
+      horizontal_flip_prob: 0.0
+      color_jitter: 0.0

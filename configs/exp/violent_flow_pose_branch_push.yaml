@@ -1,0 +1,54 @@
+experiment:
+  name: violent_flow_pose_branch_push
+  notes: "Pose-only violent_flow profile with confidence filtering and lighter regularization"
+  tags: [pose_branch, violent_flow, pose_only, push]
+
+data:
+  window_size: 24
+  train_num_windows: 16
+  eval_num_windows: 32
+  eval_window_stride: 4
+  normalize:
+    enabled: false
+  min_valid_conf: 0.10
+  frame_valid_mean_conf: 0.08
+  frame_valid_active_ratio: 0.15
+  augment:
+    train:
+      jitter_std: 0.005
+      drop_joint_prob: 0.02
+      drop_person_prob: 0.01
+      temporal_jitter: 1
+
+model:
+  d_model: 192
+  depth: 6
+  num_heads: 6
+  mlp_ratio: 3.0
+  dropout: 0.2
+  attn_dropout: 0.2
+  drop_path: 0.2
+  use_grad_checkpoint: true
+  mil:
+    topk_ratio: 0.5
+    topk_beta: 0.7
+    attn_temperature: 1.0
+
+loss:
+  focal_gamma: 0.0
+  pos_weight: 1.0
+  window_sparsity_weight: 0.0
+
+train:
+  epochs: 30
+  batch_size: 8
+  eval_batch_size: 8
+  optimizer:
+    lr: 1.0e-4
+    weight_decay: 0.1
+  scheduler:
+    warmup_epochs: 3
+  early_stop:
+    enabled: true
+    monitor: acc
+    patience: 8

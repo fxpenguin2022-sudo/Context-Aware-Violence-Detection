@@ -1,0 +1,17 @@
+experiment:
+  name: rwf2000_scene_decoupling_mask_constraint
+  notes: "Skeleton-guided mask with complement + decoupling constraints"
+  tags: [scene_decoupling, rwf2000_full, mask_constraint]
+
+model:
+  mask:
+    enforce_complement: true
+
+loss:
+  sep_weight: 0.02
+  overlap_weight: 0.15
+  fg_ratio_weight: 0.05
+  fg_ratio_min: 0.08
+  fg_ratio_max: 0.45
+  constraint_warmup_epochs: 2
+

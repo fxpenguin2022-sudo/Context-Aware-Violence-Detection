@@ -1,0 +1,16 @@
+experiment:
+  name: rwf2000_joint_model_alpha_visguide
+  notes: "Joint-model training with optional visualization-oriented alpha guidance for high-confidence skeleton samples"
+  tags: [joint_cross_attention, joint, alpha_visguide, rwf2000_full]
+
+model:
+  amcf:
+    alpha_guidance:
+      enabled: true
+      # Add a small positive bias to alpha only when skeleton confidence is
+      # clearly high. This is visualization-oriented and disabled by default.
+      scale: 2.0
+      center: 0.60
+      sharpness: 10.0
+      detach_reliability: true
+

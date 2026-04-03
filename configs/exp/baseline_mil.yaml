@@ -1,0 +1,4 @@
+experiment:
+  name: baseline_mil
+  notes: "Skeleton-only weakly supervised video classification on RWF-2000"
+  tags: [skeleton, mil, rwf2000]

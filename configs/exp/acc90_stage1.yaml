@@ -1,0 +1,44 @@
+experiment:
+  name: acc90_stage1
+  notes: "Accuracy-oriented stage-1 settings on curated split"
+  tags: [accuracy, acc90, curated]
+
+data:
+  window_size: 48
+  train_num_windows: 12
+  eval_num_windows: 20
+  eval_window_stride: 6
+
+model:
+  d_model: 256
+  depth: 8
+  num_heads: 8
+  mlp_ratio: 3.0
+  dropout: 0.1
+  attn_dropout: 0.1
+  use_grad_checkpoint: true
+
+  mil:
+    topk_ratio: 0.30
+    topk_beta: 0.45
+    attn_temperature: 0.8
+
+loss:
+  focal_gamma: 0.5
+  pos_weight: 0.9
+  window_sparsity_weight: 0.0003
+
+train:
+  epochs: 60
+  batch_size: 8
+  eval_batch_size: 8
+  optimizer:
+    lr: 2.0e-4
+  scheduler:
+    warmup_epochs: 5
+  early_stop:
+    monitor: acc
+    patience: 12
+
+logging:
+  progress_bar: true

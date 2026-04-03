@@ -1,0 +1,89 @@
+model:
+  name: joint_sg_aca_amcf
+
+  pose_branch:
+    checkpoint: ./checkpoints/pose_branch_best_acc.pt
+    model_cfg:
+      name: violence_skateformer_lite
+      input_dim: 5
+      d_model: 256
+      depth: 8
+      num_heads: 8
+      mlp_ratio: 3.0
+      dropout: 0.1
+      attn_dropout: 0.1
+      drop_path: 0.1
+      use_grad_checkpoint: true
+      acg:
+        enabled: true
+        init_tau: 0.35
+        init_temp: 0.10
+        learnable_tau: true
+        learnable_temp: true
+      interaction:
+        enabled: true
+        body_parts:
+          - [5, 7, 9]
+          - [6, 8, 10]
+          - [11, 12, 5, 6]
+          - [11, 13, 15]
+          - [12, 14, 16]
+      mil:
+        topk_ratio: 0.30
+        topk_beta: 0.45
+        attn_temperature: 0.8
+
+  context_branch:
+    checkpoint: ./checkpoints/scene_decoupling_best_acc.pt
+    model_cfg:
+      name: context_decoupled_mem
+      backbone: memvit_official_k400_pretrained
+      memvit_repo_path: ./third_party/MeMViT
+      backbone_pretrained_path: ./checkpoints/MeMViT_16L_16x4_K400.pyth
+      memvit_input_temporal: 8
+      memvit_capture_blocks: [1, 3, 14]
+      backbone_act_checkpoint: false
+      backbone_freeze_stages: 1
+      proj_dim: 320
+      num_heads: 8
+      attn_layers_per_stream: 2
+      mlp_ratio: 4.0
+      attn_dropout: 0.1
+      proj_dropout: 0.1
+      mask:
+        mode: skeleton
+        align_strategy: max
+        enforce_complement: true
+      decouple:
+        mode: dual
+      memory:
+        action_len: 24
+        scene_len: 72
+        action_pool: [4, 4]
+        scene_pool: [1, 1]
+        stop_grad_memory: true
+        compression_mode: default
+      fusion:
+        hidden_dim: 512
+        dropout: 0.2
+
+  sg_aca:
+    enabled: true
+    mode: asymmetric
+    d_joint: 512
+    num_heads: 8
+    dropout: 0.1
+
+  amcf:
+    mode: learned
+    reduction: 16
+    dropout: 0.2
+    ffn_hidden_dim: 1024
+
+  classifier:
+    dropout: 0.2
+
+loss:
+  name: bce
+  pos_weight: 1.0
+  label_smoothing: 0.0

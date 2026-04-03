@@ -1,0 +1,8 @@
+experiment:
+  name: ablate_no_acg
+  notes: "Ablation: disable ACG confidence gating"
+  tags: [ablation, no_acg, curated]
+
+model:
+  acg:
+    enabled: false

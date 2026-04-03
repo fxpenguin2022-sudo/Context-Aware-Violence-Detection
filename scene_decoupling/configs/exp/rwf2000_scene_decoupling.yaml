@@ -1,0 +1,4 @@
+experiment:
+  name: rwf2000_scene_decoupling
+  notes: "Long-term streaming context + skeleton-guided dual-memory decoupling on curated RWF-2000"
+  tags: [scene_decoupling, memvit_like, context, curated_rwf2000]

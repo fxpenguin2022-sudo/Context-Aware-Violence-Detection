@@ -1,0 +1,29 @@
+experiment:
+  name: speed_dual4090
+  notes: "Throughput-focused settings for dual 4090"
+  tags: [speed, dual4090]
+
+runtime:
+  use_amp: true
+  amp_dtype: bf16
+  allow_tf32: true
+  matmul_precision: high
+  compile_model: false
+
+train:
+  batch_size: 16
+  eval_batch_size: 16
+  num_workers: 12
+  prefetch_factor: 4
+  grad_accum_steps: 1
+  max_steps_per_epoch: 0
+
+  ddp:
+    static_graph: true
+    gradient_as_bucket_view: true
+
+model:
+  use_grad_checkpoint: false
+
+logging:
+  progress_bar: true

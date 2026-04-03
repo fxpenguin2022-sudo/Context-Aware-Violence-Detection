@@ -1,0 +1,11 @@
+train:
+  # Keep the effective batch size unchanged at 16 while cutting
+  # per-step activation memory roughly in half.
+  batch_size: 1
+  eval_batch_size: 1
+  grad_accum_steps: 16
+
+  # Single-GPU 12 GB friendly defaults.
+  ddp:
+    enabled: false
+

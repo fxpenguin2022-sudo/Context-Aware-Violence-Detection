@@ -1,0 +1,4 @@
+experiment:
+  name: hockey_fight_pose_branch_acc90
+  notes: "Pose-branch best-settings transfer to hockey_fight"
+  tags: [pose_branch, hockey_fight, acc90]

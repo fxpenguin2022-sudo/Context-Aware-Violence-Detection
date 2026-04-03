@@ -1,0 +1,48 @@
+paths:
+  pose_root: ./data/violent_flow_pose_hq
+  video_root: ./data/violent_flow
+  index_file: ./outputs/cache/violent_flow_pose_index.jsonl
+
+data:
+  dataset_name: violent_flow
+  pose_format: npz
+  key_name: keypoints
+  num_keypoints: 17
+  max_persons: 5
+  expected_frames: 0
+  include_velocity: true
+
+  train_split: train
+  val_split: val
+  class_to_label:
+    Normal: 0
+    Fight: 1
+
+  split_protocol:
+    val_fold: 5
+
+  window_size: 32
+  train_num_windows: 8
+  eval_num_windows: 12
+  eval_window_stride: 8
+  min_valid_conf: 0.0
+
+  cache_mode: ram
+  cache_size: 512
+
+  normalize:
+    enabled: true
+    center_joint: 11
+    scale_mode: torso
+
+  augment:
+    train:
+      jitter_std: 0.01
+      drop_joint_prob: 0.03
+      drop_person_prob: 0.02
+      temporal_jitter: 2
+    eval:
+      jitter_std: 0.0
+      drop_joint_prob: 0.0
+      drop_person_prob: 0.0
+      temporal_jitter: 0

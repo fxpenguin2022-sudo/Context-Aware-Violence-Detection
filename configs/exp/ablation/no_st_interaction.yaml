@@ -1,0 +1,14 @@
+experiment:
+  name: ablate_no_st_interaction
+  notes: "Ablation: remove cross-person interaction attention only"
+  tags: [ablation, no_st_interaction, curated]
+
+model:
+  interaction:
+    enabled: false
+
+train:
+  num_workers: 12
+  prefetch_factor: 4
+  ddp:
+    static_graph: true

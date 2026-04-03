@@ -1,0 +1,75 @@
+paths:
+  video_root: ./data/hockey_fight
+  pose_root: ./data/hockey_fight_pose_hq
+  index_file: ./joint_cross_attention/outputs/cache/hockey_fight_joint_index.jsonl
+
+data:
+  dataset_name: hockey_fight
+  key_name: keypoints
+  class_to_label:
+    NonViolence: 0
+    Violence: 1
+  train_split: train
+  val_split: val
+  use_prebuilt_index: false
+  split_protocol:
+    val_ratio: 0.2
+    seed: 3407
+
+  pose_branch:
+    max_persons: 5
+    num_keypoints: 17
+    include_velocity: true
+    window_size: 48
+    train_num_windows: 12
+    eval_num_windows: 20
+    eval_window_stride: 6
+    min_valid_conf: 0.0
+    frame_valid_mean_conf: 0.0
+    frame_valid_active_ratio: 0.0
+    cache_mode: ram
+    cache_size: 512
+    normalize:
+      enabled: true
+      center_joint: 11
+      scale_mode: torso
+    augment:
+      train:
+        jitter_std: 0.01
+        drop_joint_prob: 0.03
+        drop_person_prob: 0.02
+        temporal_jitter: 2
+      eval:
+        jitter_std: 0.0
+        drop_joint_prob: 0.0
+        drop_person_prob: 0.0
+        temporal_jitter: 0
+
+  context_branch:
+    frame_size: [224, 224]
+    clip_len: 8
+    clip_step: 8
+    full_sequence: true
+    max_clips_train: 12
+    max_clips_eval: 0
+    max_persons: 5
+    num_keypoints: 17
+    mask_sigma: 12.0
+    mask_threshold: 0.05
+    decode_timeout_ms: 15000
+    decode_max_seconds: 20.0
+    decode_max_frames: 3000
+    max_resample_tries: 8
+    cache_mode: none
+    cache_size_video: 64
+    cache_size_pose: 512
+    normalize:
+      mean: [0.485, 0.456, 0.406]
+      std: [0.229, 0.224, 0.225]
+    augment:
+      train:
+        horizontal_flip_prob: 0.5
+        color_jitter: 0.2
+      eval:
+        horizontal_flip_prob: 0.0
+        color_jitter: 0.0

@@ -1,0 +1,22 @@
+train:
+  # Preserve effective batch size at 16 while minimizing per-step VRAM.
+  batch_size: 1
+  eval_batch_size: 1
+  grad_accum_steps: 16
+
+  # These mainly reduce input-pipeline overhead and avoid extra pinned buffers.
+  num_workers: 0
+  pin_memory: false
+  persistent_workers: false
+
+  ddp:
+    enabled: false
+
+model:
+  context_branch:
+    model_cfg:
+      # Activation recomputation inside official MeMViT blocks.
+      # This should lower VRAM materially at the cost of slower training,
+      # while keeping the same computation graph and input information.
+      backbone_act_checkpoint: true
+

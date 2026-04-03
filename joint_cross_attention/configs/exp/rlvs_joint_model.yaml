@@ -1,0 +1,18 @@
+experiment:
+  name: rlvs_joint_model
+  notes: "Joint SG-ACA + AMCF transfer to RLVS using the released pose branch and scene-decoupling branch"
+  tags: [joint_cross_attention, rlvs]
+
+model:
+  context_branch:
+    checkpoint: ./checkpoints/scene_decoupling_best_acc.pt
+
+train:
+  epochs: 20
+  batch_size: 2
+  eval_batch_size: 2
+  grad_accum_steps: 4
+  early_stop:
+    enabled: true
+    monitor: acc
+    patience: 5

@@ -1,0 +1,4 @@
+experiment:
+  name: violent_flow_pose_branch_acc90
+  notes: "Pose-branch best-settings transfer to violent_flow"
+  tags: [pose_branch, violent_flow, acc90]
